@@ -19,6 +19,7 @@ import { Button, Form, FieldCurrencyInput, FieldTextInput } from '../../../../co
 import css from './EditListingPricingForm.module.css';
 
 const { Money } = sdkTypes;
+const FIXED_PRICE = new Money(900, 'EUR'); // 9.00 EUR -> valeur fixe
 
 const getPriceValidators = (listingMinimumPriceSubUnits, marketplaceCurrency, intl) => {
   const priceRequiredMsgId = { id: 'EditListingPricingForm.priceRequired' };
@@ -42,6 +43,7 @@ const getPriceValidators = (listingMinimumPriceSubUnits, marketplaceCurrency, in
 export const EditListingPricingFormComponent = props => (
   <FinalForm
     {...props}
+    initialValues={{ price: FIXED_PRICE }}  // ajout valeur fixe
     render={formRenderProps => {
       const {
         formId,
@@ -90,7 +92,9 @@ export const EditListingPricingFormComponent = props => (
             id={`${formId}price`}
             name="price"
             className={css.input}
-            autoFocus={autoFocus}
+            //autoFocus={autoFocus}
+            disabled={true}        // ajout coût fixe
+            readOnly={true}        // ajout coût fixe
             label={intl.formatMessage(
               { id: 'EditListingPricingForm.pricePerProduct' },
               { unitType }
