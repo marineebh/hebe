@@ -150,6 +150,7 @@ const PriceMaybe = props => {
       </div>
       <div className={css.perUnitInCTA}>
         <FormattedMessage id="OrderPanel.perUnit" values={{ unitType }} />
+        <span>par nuit</span>
       </div>
     </div>
   ) : (
@@ -157,6 +158,7 @@ const PriceMaybe = props => {
       <p className={css.price}>{formatMoneyIfSupportedCurrency(price, intl)}</p>
       <div className={css.perUnit}>
         <FormattedMessage id="OrderPanel.perUnit" values={{ unitType }} />
+        <span>par nuit</span>
       </div>
     </div>
   );

@@ -138,8 +138,8 @@ const sortConfig = {
   options: [
     { key: 'createdAt', label: 'Newest' },
     { key: '-createdAt', label: 'Oldest' },
-    { key: '-price', label: 'Lowest price' },
-    { key: 'price', label: 'Highest price' },
+    // { key: '-price', label: 'Lowest price' },
+    // { key: 'price', label: 'Highest price' },
     { key: 'relevance', label: 'Relevance', longLabel: 'Relevance (Keyword search)' },
   ],
 };
