@@ -58,9 +58,12 @@ const PriceMaybe = props => {
       <div className={css.priceValue} title={priceTitle}>
         {formattedPrice}
       </div>
+{/* modif ici d'ajout 'par nuit' */}
       {isBookable ? (
         <div className={css.perUnit}>
-          <FormattedMessage id="ListingCard.perUnit" values={{ unitType: publicData?.unitType }} />
+          {publicData?.unitType === 'night' ? 'par nuit' : 
+            <FormattedMessage id="ListingCard.perUnit" values={{ unitType: publicData?.unitType }} />
+          }
         </div>
       ) : null}
     </div>
