@@ -10,6 +10,7 @@ import difference from 'lodash/difference';
 import mapValues from 'lodash/mapValues';
 import moment from 'moment';
 // ajout test 2
+// test 3
 // Configs and store setup
 import defaultConfig from './config/configDefault';
 import appSettings from './config/settings';
