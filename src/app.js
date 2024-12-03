@@ -9,7 +9,7 @@ import loadable from '@loadable/component';
 import difference from 'lodash/difference';
 import mapValues from 'lodash/mapValues';
 import moment from 'moment';
-
+// ajout test 2
 // Configs and store setup
 import defaultConfig from './config/configDefault';
 import appSettings from './config/settings';
