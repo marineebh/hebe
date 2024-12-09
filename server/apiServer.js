@@ -1,3 +1,4 @@
+/*
 // NOTE: this server is purely a dev-mode server. In production, the
 // server/index.js server also serves the API routes.
 
@@ -46,6 +47,56 @@ app.get('/robots.txt', robotsTxtRoute);
 
 // Handle different sitemap-* resources. E.g. /sitemap-index.xml
 app.get('/sitemap-:resource', sitemapResourceRoute);
+
+app.listen(PORT, () => {
+  console.log(`API server listening on ${PORT}`);
+});
+*/
+const express = require('express');
+const path = require('path');
+const compression = require('compression');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const apiRouter = require('./apiRouter');
+const wellKnownRouter = require('./wellKnownRouter');
+const webmanifestResourceRoute = require('./resources/webmanifest');
+const robotsTxtRoute = require('./resources/robotsTxt');
+const sitemapResourceRoute = require('./resources/sitemap');
+
+const radix = 10;
+const PORT = parseInt(process.env.REACT_APP_DEV_API_SERVER_PORT, radix);
+const app = express();
+
+// CORS pour développement uniquement (peut être retiré en production)
+app.use(
+  cors({
+    origin: process.env.REACT_APP_MARKETPLACE_ROOT_URL,
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
+app.use('/.well-known', wellKnownRouter);
+app.use('/api', apiRouter);
+
+// Pour servir le fichier webmanifest
+app.get('/site.webmanifest', webmanifestResourceRoute);
+
+// robots.txt et sitemap-* sont compressés comme sur le serveur principal
+app.use(compression());
+app.get('/robots.txt', robotsTxtRoute);
+app.get('/sitemap-:resource', sitemapResourceRoute);
+
+// Servir les fichiers statiques React en production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+
+  // Toute autre route redirige vers index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`API server listening on ${PORT}`);
